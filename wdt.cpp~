@@ -2,17 +2,9 @@
 #include <avr/wdt.h>
 
 
-/*
- * Pointer function for interrupt request
- */
-void (*functionPtr)(void);
 
-void wdtSetup(Ptr) 
+void wdtSetup() 
 {
-    //set pointer function
-    functionPtr = Ptr;
-    
-    //start wdr
     cli();
     MCUSR = 0;
     WDTCSR |= (1 << WDE) | (1 << WDCE);
@@ -26,6 +18,5 @@ void wdtSetup(Ptr)
  */
 ISR(WDT_vect)
 {
-   //run pointer function
-   (*functionPtr)();
+   //put interrupt code here
 }
